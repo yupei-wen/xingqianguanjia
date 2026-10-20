@@ -464,7 +464,7 @@ main{flex:1;width:100%;max-width:var(--maxw);margin:0 auto;padding:20px 16px 120
 <div class="overlay" id="fit-overlay">
   <div class="sheet" role="dialog" aria-modal="true" aria-label="穿搭建议">
     <div class="sh-head">
-      <div class="sh-title" id="fit-title">南京 · 穿搭建议</div>
+      <div class="sh-title" id="fit-title">穿搭建议</div>
       <button class="sh-close" id="fit-close" aria-label="关闭">×</button>
     </div>
     <div class="fit-tag">建议 · 按目的地与出游日期生成</div>
@@ -910,10 +910,10 @@ function ticketSearchUrl(kw){ return 'https://www.fliggy.com/search.htm?searchKe
 function parseDate(d){ if(!d) return null; const x=new Date(d); return isNaN(x.getTime())?null:x; }
 function seasonOf(dt){
   const m=dt.getMonth()+1;
-  if(m>=3&&m<=5)  return {key:'spring', label:'春季（3-5月）', desc:'南京春天气温多变，早晚偏凉、午后转暖，偶有阵雨。', tips:'樱花季（3月中-4月中）鸡鸣寺、玄武湖客流大，热门景点建议提前3-5天预约。'};
-  if(m>=6&&m<=8)  return {key:'summer', label:'夏季（6-8月）', desc:'南京夏季湿热，最高常超30℃，多午后雷阵雨。', tips:'午后雷雨多发，行程留机动；备遮阳帽、防晒霜、便携小风扇。'};
-  if(m>=9&&m<=11) return {key:'autumn', label:'秋季（9-11月）', desc:'南京秋高气爽、昼夜温差拉大，是最舒适的出游季。', tips:'栖霞山红叶（10-11月）正值高峰，周末建议早出发。'};
-  return {key:'winter', label:'冬季（12-2月）', desc:'南京冬季湿冷、无集中供暖，体感偏冷。', tips:'湿冷注意保暖，热门室内场馆适合午后安排。'};
+  if(m>=3&&m<=5)  return {key:'spring', label:'春季（3-5月）', desc:'春天气温多变，早晚偏凉、午后转暖，偶有阵雨。', tips:'热门景点客流大，建议提前预约，周末早出发。'};
+  if(m>=6&&m<=8)  return {key:'summer', label:'夏季（6-8月）', desc:'夏季炎热，多午后雷阵雨。', tips:'午后雷雨多发，行程留机动；备遮阳帽、防晒霜、便携小风扇。'};
+  if(m>=9&&m<=11) return {key:'autumn', label:'秋季（9-11月）', desc:'秋高气爽、昼夜温差拉大，是最舒适的出游季。', tips:'热门赏秋景点正值高峰，周末建议早出发。'};
+  return {key:'winter', label:'冬季（12-2月）', desc:'冬季湿冷、体感偏冷。', tips:'注意保暖，热门室内场馆适合午后安排。'};
 }
 function renderTripTips(){
   const el=$('trip-tips'); if(!el)return;
@@ -958,7 +958,7 @@ function renderStep3(){
     $('addrow').innerHTML = `<input id="add-input" type="text" placeholder="要带的物品，如：一次性雨衣">
        <button class="addbtn" id="add-btn">添加</button>`;
   } else {
-    $('addrow').innerHTML = `<input id="add-input" type="text" placeholder="要买/预约的项目，如：牛首山门票">
+    $('addrow').innerHTML = `<input id="add-input" type="text" placeholder="要买/预约的项目，如：景点门票">
        <select id="add-kind">
          <option value="material">物资 · 去淘宝搜</option>
          <option value="ticket">门票 / 游船 · 预约</option>
@@ -1061,7 +1061,7 @@ function showFitModal(){
   const dt=parseDate(state.inputs.date);
   const s=seasonOf(dt||new Date());
   const dateLabel = dt ? `${dt.getFullYear()}年${dt.getMonth()+1}月${dt.getDate()}日 · ` : '';
-  $('fit-title').textContent = '南京 · '+dateLabel+s.label+' 穿搭建议';
+  $('fit-title').textContent = (state.inputs.destination||'')+' · '+dateLabel+s.label+' 穿搭建议';
   const kw = encodeURIComponent(s.key==='winter'?'冬季 保暖 外套':(s.key==='summer'?'夏季 防晒 薄款':'秋季 外套 卫衣'));
   $('fit-body').innerHTML = `
     <div style="margin-bottom:12px"><a class="actbtn shop" href="https://s.taobao.com/search?q=${kw}" target="_blank" rel="noopener">去淘宝选购当季服饰</a></div>
@@ -1071,27 +1071,27 @@ function showFitModal(){
 function buildFitGroups(s){
   const G={
     spring:[
-      {fg:'基础公式 · 洋葱式叠穿', p:'南京春天气温多变，早晚偏凉、午后转暖：内搭长袖/薄打底，中层卫衣或针织，外层薄外套（风衣/牛仔），午后可脱。'},
-      {fg:'按行程点位', p:'中山陵、明孝陵台阶多且露天——穿舒适防滑运动鞋；玄武湖、明城墙湖风大，加防风外套；夜晚秦淮河游船偏凉，备连帽外套。'},
-      {fg:'雨天应对（江南多雨）', p:'随身带轻便雨衣或折叠伞；雨具如缺可在天猫超市选购，不必为一次旅行囤太多。'},
-      {fg:'拍照参考', p:'春日梧桐与民国建筑区偏清新，浅色、白/米色更出片。'},
+      {fg:'基础公式 · 洋葱式叠穿', p:'春天气温多变，早晚偏凉、午后转暖：内搭长袖/薄打底，中层卫衣或针织，外层薄外套，午后可脱。'},
+      {fg:'按行程点位', p:'露天台阶多的景点穿舒适防滑运动鞋；湖边/江边风大加防风外套；夜晚游船偏凉，备连帽外套。'},
+      {fg:'雨天应对（春季多雨）', p:'随身带轻便雨衣或折叠伞；雨具如缺可在淘宝选购。'},
+      {fg:'拍照参考', p:'春季城市绿植偏清新，浅色、白/米色更出片。'},
     ],
     summer:[
-      {fg:'基础公式 · 透气防晒', p:'南京夏季湿热、最高常超30℃：短袖+轻薄速干，备防晒衫/遮阳帽，午后尽量安排室内或树荫点位。'},
-      {fg:'按行程点位', p:'露天点位（中山陵、牛首山、栖霞山）注意补水与防晒；室内场馆（南京博物院、六朝博物馆）冷气足，备一件薄外套。'},
+      {fg:'基础公式 · 透气防晒', p:'夏季炎热：短袖+轻薄速干，备防晒衫/遮阳帽，午后尽量安排室内或树荫点位。'},
+      {fg:'按行程点位', p:'露天景点注意补水与防晒；室内场馆冷气足，备一件薄外套。'},
       {fg:'雨天应对（午后雷阵雨）', p:'下午雷雨多发，行程留机动；随身带折叠伞或轻便雨衣。'},
       {fg:'拍照参考', p:'夏日光线强，早晚黄金时段出片更柔和，穿搭选清爽浅色。'},
     ],
     autumn:[
-      {fg:'基础公式 · 洋葱式叠穿', p:'南京秋季昼夜温差拉大（约14-24℃）：内搭长袖，中层卫衣/针织，外层薄外套，午后转暖可脱。'},
-      {fg:'按行程点位', p:'中山陵、明孝陵台阶多且露天——穿舒适运动鞋；玄武湖、明城墙湖风大，加防风外套；夜晚秦淮河游船江风偏凉，备连帽外套。'},
-      {fg:'雨天应对（江南多雨）', p:'备轻便雨衣或防水冲锋衣；雨具可到天猫超市补购。'},
-      {fg:'拍照参考', p:'秋季梧桐与民国公馆区偏大地色，浅色/卡其/米白更出片。'},
+      {fg:'基础公式 · 洋葱式叠穿', p:'秋季昼夜温差大：内搭长袖，中层卫衣/针织，外层薄外套，午后转暖可脱。'},
+      {fg:'按行程点位', p:'台阶多的景点穿舒适运动鞋；湖边/江边风大加防风外套；夜晚游船江风偏凉，备连帽外套。'},
+      {fg:'雨天应对', p:'备轻便雨衣或防水外套；雨具可到淘宝补购。'},
+      {fg:'拍照参考', p:'秋季偏大地色系，浅色/卡其/米白更出片。'},
     ],
     winter:[
-      {fg:'基础公式 · 保暖防风', p:'南京冬季湿冷、无集中供暖：内搭保暖打底，中层毛衣/卫衣，外层羽绒或厚大衣；围巾、手套按需备好。'},
-      {fg:'按行程点位', p:'露天点位体感更冷，注意头部与手部保暖；室内场馆（博物院、六朝博物馆）温暖，适合午后安排。'},
-      {fg:'雨天应对（湿冷多雨）', p:'带防雨外套或雨伞，鞋子选防滑保暖款。'},
+      {fg:'基础公式 · 保暖防风', p:'冬季湿冷：内搭保暖打底，中层毛衣/卫衣，外层羽绒或厚大衣；围巾、手套按需备好。'},
+      {fg:'按行程点位', p:'露天点位体感更冷，注意头部与手部保暖；室内场馆温暖，适合午后安排。'},
+      {fg:'雨天应对（湿冷）', p:'带防雨外套或雨伞，鞋子选防滑保暖款。'},
       {fg:'拍照参考', p:'冬季整体色调偏沉，亮色围巾/内搭能点睛。'},
     ],
   };
