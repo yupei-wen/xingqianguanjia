@@ -562,102 +562,103 @@ function computeTransport(inputs){
 }
 
 function generateTripPlan(inputs){
-  /* —— 南京 3 天 · 模拟方案 —— */
-  /* 行程池：按“旅行节奏”切取每天景点数（轻松3 / 均衡4 / 紧凑5） */
-  const POOLS = [
-    {day:1, theme:'金陵古都 · 博物馆与城墙', slots:[
-      {time:'09:00', title:'南京博物院', address:'玄武区中山东路321号', duration:'2.5小时', cost:0,   tag:'博物馆', lat:32.041, lng:118.826, reason:'六大馆藏免费预约，历史馆与民国馆最能快速建立城市印象，适合刚落地。'},
-      {time:'12:00', title:'老门东 · 午餐', address:'秦淮区剪子巷', duration:'1.5小时', cost:60,  tag:'美食', lat:32.012, lng:118.789, reason:'小吃集中、对学生友好，鸭血粉丝汤与梅花糕是经典，价位适中。'},
-      {time:'14:00', title:'明孝陵', address:'玄武区石象路7号', duration:'2小时',   cost:35,  tag:'历史', lat:32.058, lng:118.850, reason:'世界文化遗产，神道石象路秋色出片，节奏松弛不赶路。'},
-      {time:'17:00', title:'中山陵', address:'玄武区石象路7号', duration:'1.5小时', cost:0,   tag:'历史', lat:32.064, lng:118.848, reason:'免费预约，392级台阶登顶俯瞰钟山，日落前到达最合适。'},
-      {time:'19:30', title:'夫子庙 · 秦淮河夜景', address:'秦淮区贡院街', duration:'2小时', cost:0, tag:'夜景', lat:32.021, lng:118.791, reason:'夜晚画舫与灯影最有氛围，适合小团体慢慢逛、拍夜景。'},
+  const dest = inputs.destination || '目的地';
+  const [clat, clng] = getCityLL(dest) || [30.5, 120.3];
+  const perDay = {relaxed:3, balanced:4, packed:5}[inputs.pace] || 4;
+  const days = Math.max(1, Math.min(7, Number(inputs.days)||3));
+  const ppl = Math.max(1, Number(inputs.travelers)||2);
+
+  /* 通用每日主题模板 */
+  const THEMES = [
+    {theme:'城市初印象 · 核心地标', slots:[
+      {t:'09:00', title:dest+'博物馆', a:'市中心核心区', d:'2.5小时', c:0, tag:'博物馆', r:'快速了解城市历史与文化，适合刚落地建立第一印象。', dl:0.02},
+      {t:'12:00', title:'当地美食街 · 午餐', a:'老城区美食街区', d:'1.5小时', c:60, tag:'美食', r:'小吃集中、对学生友好，品尝当地特色小吃。', dl:0.01},
+      {t:'14:00', title:dest+'标志性景点', a:'城市核心景区', d:'2小时', c:50, tag:'历史', r:'城市名片级景点，必打卡。', dl:-0.03},
+      {t:'17:00', title:dest+'夜景打卡', a:'滨水/高点观景处', d:'1.5小时', c:0, tag:'夜景', r:'日落前到达，夜景最出片。', dl:0.01},
     ]},
-    {day:2, theme:'城市漫步 · 园林与老城南', slots:[
-      {time:'09:00', title:'鸡鸣寺', address:'玄武区鸡鸣寺路1号', duration:'1小时',   cost:10,  tag:'历史', lat:32.057, lng:118.791, reason:'“南朝第一寺”，秋冬清净，可求平安符，适合一天从容开场。'},
-      {time:'10:30', title:'玄武湖 · 明城墙', address:'玄武区玄武巷1号', duration:'2小时', cost:0, tag:'自然', lat:32.060, lng:118.787, reason:'环湖漫步加登城墙，开阔湖景适合慢慢走、拍照，体力要求低。'},
-      {time:'13:00', title:'总统府', address:'玄武区长江路292号', duration:'2小时',   cost:20,  tag:'历史', lat:32.046, lng:118.795, reason:'民国史实景地，建筑中西合璧，听讲解收获更多。'},
-      {time:'15:30', title:'颐和路民国公馆区', address:'鼓楼区颐和路', duration:'1.5小时', cost:0, tag:'城市漫步', lat:32.078, lng:118.776, reason:'梧桐加民国洋楼，小众出片、人少清净，适合小团体边走边聊。'},
-      {time:'18:00', title:'老门东夜市', address:'秦淮区剪子巷', duration:'2小时',   cost:60,  tag:'美食', lat:32.012, lng:118.789, reason:'夜宵档口多，适合小团体边吃边逛，结束一天行程。'},
+    {theme:'深度漫步 · 老街与公园', slots:[
+      {t:'09:00', title:'古街/历史街区', a:'老城区', d:'1.5小时', c:0, tag:'城市漫步', r:'感受城市烟火气，边逛边拍照。', dl:0.03},
+      {t:'11:00', title:'城市公园/湖景', a:'市中心公园', d:'2小时', c:0, tag:'自然', r:'开阔湖景适合慢慢走，体力要求低。', dl:-0.02},
+      {t:'14:00', title:'当地文艺空间', a:'老城区文创区', d:'1.5小时', c:30, tag:'文化', r:'书店/美术馆/独立咖啡馆，适合小团体休息聊天。', dl:0.02},
+      {t:'18:00', title:'夜市 · 晚餐', a:'热门夜市商圈', d:'2小时', c:60, tag:'美食', r:'夜宵档口多，边吃边逛结束一天。', dl:-0.01},
     ]},
-    {day:3, theme:'湖山收尾 · 轻松返程', slots:[
-      {time:'09:30', title:'牛首山文化旅游区', address:'江宁区宁丹大道18号', duration:'3小时', cost:88, tag:'自然', lat:31.932, lng:118.752, reason:'佛顶宫建筑震撼，半天刚好，学生证可享优惠。'},
-      {time:'13:30', title:'新街口商圈 · 午餐闲逛', address:'鼓楼区中山南路', duration:'2小时', cost:60, tag:'购物', lat:32.043, lng:118.782, reason:'返程前采购伴手礼，地铁换乘方便，节奏轻。'},
-      {time:'16:00', title:'整理返程', address:'南京站 / 南京南站', duration:'1小时', cost:0, tag:'其他', lat:31.968, lng:118.793, reason:'预留充足时间，避开晚高峰。'},
+    {theme:'近郊探索 · 自然与人文', slots:[
+      {t:'09:00', title:dest+'近郊景区', a:'市郊公交可达', d:'3小时', c:80, tag:'自然', r:'学生证可享优惠，需预留较足游玩时间。', dl:-0.1},
+      {t:'13:30', title:'商圈 · 午餐闲逛', a:'市中心商圈', d:'2小时', c:60, tag:'购物', r:'返程前采购伴手礼，地铁换乘方便。', dl:0.05},
+      {t:'16:00', title:'整理返程', a:'高铁站/机场', d:'1小时', c:0, tag:'其他', r:'预留充足时间，避开晚高峰。', dl:0.0},
     ]},
-    {day:4, theme:'六朝与紫金山 · 人文湖泊', slots:[
-      {time:'09:00', title:'六朝博物馆', address:'玄武区长江路302号', duration:'1.5小时', cost:30, tag:'博物馆', lat:32.048, lng:118.794, reason:'建筑与展陈很有设计感，人少安静，适合慢慢看六朝烟水。'},
-      {time:'11:00', title:'明故宫遗址公园', address:'玄武区中山东路311号', duration:'1小时', cost:0, tag:'历史', lat:32.045, lng:118.805, reason:'免费开放，在残存柱础间感受明代都城尺度，节奏轻。'},
-      {time:'14:00', title:'美龄宫', address:'玄武区中山陵9号', duration:'1.5小时', cost:30, tag:'历史', lat:32.063, lng:118.846, reason:'“项链上的宝石”，秋季梧桐环绕时最出片。'},
-      {time:'16:00', title:'灵谷寺', address:'玄武区灵谷寺2号', duration:'1.5小时', cost:35, tag:'自然', lat:32.067, lng:118.839, reason:'古刹清幽，无梁殿与桂花很经典，适合收尾放松。'},
-      {time:'18:30', title:'新街口 · 晚餐', address:'鼓楼区中山南路', duration:'1.5小时', cost:60, tag:'美食', lat:32.043, lng:118.782, reason:'商圈选择多，小团体聚餐方便，饭后地铁返程。'},
+    {theme:'人文体验 · 手作与美食', slots:[
+      {t:'09:30', title:'当地手作体验', a:'老城区体验店', d:'2小时', c:80, tag:'体验', r:'可现场体验制作，适合留作纪念。', dl:0.02},
+      {t:'12:00', title:'地道餐馆 · 午餐', a:'本地人推荐餐厅', d:'1.5小时', c:70, tag:'美食', r:'不踩雷的当地特色菜，小团体聚餐方便。', dl:-0.01},
+      {t:'14:30', title:'城市图书馆/大学', a:'市中心', d:'1.5小时', c:0, tag:'文化', r:'安静有格调，适合歇脚拍照。', dl:0.03},
+      {t:'17:00', title:'江边/湖边日落', a:'滨水步道', d:'1.5小时', c:0, tag:'夜景', r:'最后一晚看日落，完美收尾。', dl:-0.02},
     ]},
-    {day:5, theme:'山水红叶 · 栖霞与收尾', slots:[
-      {time:'09:30', title:'栖霞山风景区', address:'栖霞区栖霞街', duration:'3小时', cost:25, tag:'自然', lat:32.137, lng:118.966, reason:'“金陵第一明秀山”，秋季红叶最盛，需预留较足游玩时间。'},
-      {time:'13:30', title:'雨花台', address:'雨花台区雨花路215号', duration:'1.5小时', cost:0, tag:'历史', lat:31.999, lng:118.784, reason:'免费，烈士陵园与雨花石文化，庄重而安静。'},
-      {time:'15:30', title:'夫子庙 · 购物补漏', address:'秦淮区贡院街', duration:'1.5小时', cost:40, tag:'购物', lat:32.021, lng:118.791, reason:'伴手礼与文创集中，返程前顺手采买。'},
-      {time:'17:30', title:'整理返程', address:'南京站 / 南京南站', duration:'1小时', cost:0, tag:'其他', lat:32.088, lng:118.801, reason:'预留充足时间，避开晚高峰。'},
+    {theme:'自由补漏 · 轻松收尾', slots:[
+      {t:'10:00', title:'睡到自然醒 · 酒店周边', a:'酒店附近', d:'2小时', c:0, tag:'自由', r:'节奏由你们定，睡饱再出发。', dl:0},
+      {t:'13:30', title:'自由探索/购物补漏', a:'市中心商圈', d:'3小时', c:50, tag:'自由', r:'按状态自由安排，商场、书店或咖啡店均可。', dl:0.02},
+      {t:'17:30', title:'整理返程', a:'高铁站/机场', d:'1小时', c:0, tag:'其他', r:'预留充足时间，避开晚高峰。', dl:0},
     ]},
   ];
-  /* 天数由 inputs.days 决定：主题日最多取 5 天，超出补“机动日” */
-  const perDay = {relaxed:3, balanced:4, packed:5}[inputs.pace] || 4;
-  const base = POOLS.slice(0, Math.max(0, Math.min(inputs.days, POOLS.length)));
-  const extra = [];
-  for(let n=base.length+1; n<=inputs.days; n++){
-    extra.push({day:n, theme:'机动 · 自由探索与补漏', slots:[
-      {time:'10:00', title:'睡到自然醒 · 酒店周边', address:'酒店附近', duration:'2小时', cost:0, tag:'自由', reason:'节奏由你们定，睡饱再出发。'},
-      {time:'13:30', title:'自由探索 / 购物补漏', address:'新街口 / 老门东', duration:'3小时', cost:40, tag:'自由', reason:'按状态自由安排，商场、书店或咖啡店均可。'},
-      {time:'17:30', title:'整理返程', address:'南京站 / 南京南站', duration:'1小时', cost:0, tag:'其他', reason:'预留充足时间，避开晚高峰。'},
-    ]});
+
+  const it = [];
+  for(let d=0; d<days; d++){
+    const tpl = THEMES[d % THEMES.length];
+    const slots = tpl.slots.slice(0, perDay).map((s,i)=>({
+      time:s.t, title:s.title, address:s.a, duration:s.d,
+      cost:s.c, tag:s.tag, reason:s.r,
+      lat: +(clat + s.dl + (Math.random()-0.5)*0.01).toFixed(4),
+      lng: +(clng + s.dl*1.3 + (Math.random()-0.5)*0.01).toFixed(4),
+    }));
+    it.push({day:d+1, theme:tpl.theme, slots});
   }
-  const it = [...base, ...extra].map(d=>({day:d.day, theme:d.theme, slots:d.slots.slice(0, perDay)}));
 
   const trans = computeTransport(inputs);
+  const nights = days - 1;
+  const perPerson = Number(inputs.budgetPerPerson)||500;
   const budget = {
-    capPerPerson: inputs.budgetPerPerson,
+    capPerPerson: perPerson,
     items:[
-      {category:'往返大交通', amount:trans.amount,
-        note: trans.km==null ? '未填出发地' : `${inputs.origin} · ${TRANS_MODE[inputs.transMode].label} · 约${trans.km}km · 估算参考`},
-      {category:'住宿', amount:1600, note:STAY_OPTIONS[inputs.stay] + ' · 4人间×2晚'},
-      {category:'门票 / 讲解', amount:520, note:'明孝陵+总统府+牛首山等（学生证半价口径）'},
-      {category:'餐饮', amount:960, note:'按人均约80元/天估算'},
-      {category:'市内交通', amount:400, note:'地铁为主 + 少量打车'},
-      {category:'文创 / 应急', amount:220, note:'文创、雨伞等备用'},
+      {category:'往返大交通', amount: trans.km==null ? 0 : trans.amount * ppl,
+        note: trans.km==null ? '未填出发地' : `${inputs.origin} → ${dest} · ${TRANS_MODE[inputs.transMode].label} · 约${trans.km}km · ¥${trans.amount}/人 × ${ppl}人`},
+      {category:'住宿', amount: Math.round(120*nights*Math.ceil(ppl/4)), note: STAY_OPTIONS[inputs.stay]+` · ${nights}晚`},
+      {category:'门票/体验', amount: Math.round(120*days*ppl*0.6), note:'学生证半价口径估算'},
+      {category:'餐饮', amount: Math.round(80*days*ppl), note:'按人均约80元/天估算'},
+      {category:'市内交通', amount: Math.round(40*days*ppl), note:'地铁为主+少量打车'},
+      {category:'文创/应急', amount: Math.round(50*ppl), note:'文创、雨具等备用'},
     ],
   };
 
   const checklist = {
     bring:[
-      {label:'身份证', note:'证件 · 仅携带提醒', shop:false},
-      {label:'学生证', note:'证件 · 多数景点门票半价', shop:false},
-      {label:'手机', shop:false},
-      {label:'钥匙', shop:false},
-      {label:'纸巾', shop:true},
-      {label:'充电宝', shop:true},
-      {label:'常用药', note:'晕车药、创可贴等', shop:true},
+      {label:'身份证', note:'证件 · 必带', shop:false},
+      {label:'学生证', note:'多数景点门票半价', shop:false},
+      {label:'手机+充电宝', shop:true},
+      {label:'纸巾/湿巾', shop:true},
+      {label:'常用药', note:'晕车药、创可贴', shop:true},
     ],
     need:[
-      {label:'明孝陵 / 中山陵联票', kind:'ticket',   status:'pending', amount:35, qty:4, keyword:'明孝陵 中山陵 门票'},
-      {label:'秦淮河夜游船票',      kind:'ticket',   status:'pending', amount:80, qty:4, keyword:'秦淮河 游船 门票'},
-      {label:'雨具（雨伞 / 雨衣）', kind:'material', status:'pending', amount:30, qty:4, keyword:'雨伞 雨衣'},
-      {label:'日用品（纸巾、洗漱补充）', kind:'material', status:'pending', amount:60, qty:1, keyword:'旅行 日用品'},
-      {label:'秋冬保暖内搭（如缺再购）', kind:'clothing', status:'pending', amount:0,  qty:1, keyword:'南京 10月 穿搭'},
+      {label:dest+'热门景点门票', kind:'ticket', status:'pending', amount:50, qty:ppl, keyword:dest+' 景点 门票'},
+      {label:dest+'夜市/游船票', kind:'ticket', status:'pending', amount:80, qty:ppl, keyword:dest+' 夜市 游船'},
+      {label:'雨具', kind:'material', status:'pending', amount:30, qty:ppl, keyword:'雨伞 雨衣'},
+      {label:'穿搭参考', kind:'clothing', status:'pending', amount:0, qty:1, keyword:dest+' 10月 穿搭'},
     ],
   };
 
   const summary = {
-    hotel:{name:'拾忆青年旅舍（夫子庙店）', room:'4人间床位', nights:2,
-           address:'秦淮区大石坝街（近地铁3号线）', cost:1600, lat:32.019, lng:118.791,
-           note:'步行可到秦淮河，公共空间适合小团体开“行前小会”。'},
+    hotel:{name:dest+'青年旅舍（市中心店）', room: STAY_OPTIONS[inputs.stay]||'4人间床位', nights,
+           address: dest+'市中心（近地铁）', cost: Math.round(120*nights*Math.ceil(ppl/4)),
+           lat: clat+0.01, lng: clng,
+           note:'交通便利，步行可达主要商圈和地铁站。'},
     experiences:[
-      {label:'秦淮河夜游画舫', note:'约40分钟，建议提前购票选靠窗位'},
-      {label:'老门东梅花糕手作体验', note:'可现场体验制作，适合留作纪念'},
+      {label:dest+'夜市夜游', note:'建议提前查攻略选热门摊位'},
+      {label:dest+'手作体验', note:'适合留作旅行纪念'},
     ],
-    mapNote:'点击“地图”跳转高德检索，可在 App 内直接导航或收藏景点。',
+    mapNote:'点击”地图”跳转高德检索，可在 App 内直接导航。',
   };
 
-  return { meta:{destination:inputs.destination, days:inputs.days, travelers:inputs.travelers,
-                budgetPerPerson:inputs.budgetPerPerson,
-                interests:inputs.interests.map(id=>INTEREST_OPTIONS.find(o=>o.id===id)?.label||id).join('、'),
+  return { meta:{destination:dest, days, travelers:ppl,
+                budgetPerPerson:perPerson,
+                interests:Array.isArray(inputs.interests)?inputs.interests.join('、'):(inputs.interests||''),
                 pace:PACE_OPTIONS.find(p=>p.id===inputs.pace)?.label||'均衡'},
            itinerary:it, budget, checklist, summary };
 }
