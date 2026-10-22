@@ -116,6 +116,57 @@ main{flex:1;width:100%;max-width:var(--maxw);margin:0 auto;padding:20px 16px 120
 .titem .ttime{font-size:12px;font-weight:700;color:var(--brand);padding-top:2px;white-space:nowrap}
 .titem .body .tname{font-size:14.5px;font-weight:700;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
 .tag{font-size:10.5px;color:var(--brand);background:var(--brand-soft);border:1px solid #CFE6E0;padding:1px 7px;border-radius:6px;font-weight:600}
+.spotrate{font-size:10.5px;color:#E9A23B;background:#FDF4E3;border:1px solid #F0DCB4;padding:1px 7px;border-radius:6px;font-weight:700}
+.delspot{margin-left:auto;width:22px;height:22px;border:none;border-radius:50%;background:#F3E7E7;color:#C05555;font-size:15px;line-height:1;cursor:pointer;flex:none;display:inline-flex;align-items:center;justify-content:center}
+.delspot:hover{background:#C05555;color:#fff}
+.leg{margin:2px 18px;border:1px dashed var(--line);border-radius:10px;padding:8px 12px;background:#FBFCFB}
+.leg+.titem{border-top:none}
+.leghead{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--ink-faint);margin-bottom:6px}
+.leghead .l{color:var(--brand);font-weight:700}
+.legbody{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.legchips{display:flex;gap:6px;flex-wrap:wrap}
+.legchip{font-size:11.5px!important;padding:4px 9px!important}
+.legchip i{font-style:normal;margin-left:3px;color:var(--ink-faint);font-size:10px}
+.legchip.on i{color:var(--brand)}
+.legcost{font-size:12px;font-weight:700;color:var(--brand)}
+.legwarn{display:block;margin-top:6px;font-size:11px;color:#C07A3B}
+.addspotwrap{padding:10px 18px 14px}
+.addspot{width:100%;border:1.5px dashed var(--brand);background:transparent;color:var(--brand);border-radius:10px;padding:9px;font-size:13px;font-weight:700;cursor:pointer}
+.addspot:hover{background:var(--brand-soft)}
+.addspot-panel{border:1.5px solid var(--brand);border-radius:12px;margin:10px 18px;padding:12px;background:#F4FAF8}
+.addspot-panel .asp-title{font-size:13px;font-weight:800;color:var(--brand-dark);margin-bottom:10px}
+.addspot-panel .asp-body{display:grid;gap:8px}
+.addspot-panel .asp-foot{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
+.addspot-panel .actbtn{font-size:12.5px;padding:7px 14px}
+.addspot-panel .asp-search{display:flex;gap:8px;margin-bottom:8px}
+.addspot-panel .poi-res{display:grid;gap:6px;margin-bottom:10px;max-height:200px;overflow:auto}
+.addspot-panel .poi-hint{font-size:12px;color:var(--ink-faint);padding:6px 2px}
+.poi-item{display:flex;flex-direction:column;gap:2px;text-align:left;border:1px solid var(--line);border-radius:9px;background:#fff;padding:7px 10px;cursor:pointer}
+.poi-item:hover{border-color:var(--brand);background:var(--brand-soft)}
+.poi-item .pn{font-size:13px;font-weight:700;color:var(--ink)}
+.poi-item .pa{font-size:11px;color:var(--ink-faint)}
+/* 预算情感互动装置 */
+.mood{display:flex;gap:12px;align-items:flex-start;border-radius:13px;padding:13px 14px;margin-top:12px;border:1px solid var(--line)}
+.mood.over{background:#FDF1F1;border-color:#E8C7C7}
+.mood.ok{background:#EAF7F3;border-color:#BCE3D8}
+.mood-icon{flex:0 0 auto;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.mood-body{flex:1}
+.mt{font-size:14.5px;font-weight:700;color:var(--ink)}
+.mood.over .mt b{color:#B44747}
+.mood.ok .mt b{color:#0E7A6B}
+.ms{font-size:12.5px;color:var(--ink-faint);margin:4px 0 8px;line-height:1.5}
+.ma{display:flex;gap:8px}
+/* 往返大交通卡片 */
+.transc .cardhead{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.transc .cardhead .sub{font-size:12px;color:var(--ink-faint)}
+.transc-body{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;margin:10px 0 8px}
+.trc-row{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:13px}
+.trc-row .k{color:var(--ink-faint)}
+.trc-row .v{font-weight:600;color:var(--ink)}
+.trc-row .v b{color:var(--brand);font-size:15px}
+.tt-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:4px}
+.tt-no{font-size:13px;color:var(--ink-faint)}
+.tt-note{font-size:11px;color:var(--ink-faint)}
 .taddr{font-size:11.5px;color:var(--ink-faint);margin:3px 0 6px}
 .tmeta{display:flex;gap:14px;font-size:11.5px;color:var(--ink-soft);margin-bottom:6px}
 .tmeta span{display:inline-flex;align-items:center;gap:4px}
@@ -307,15 +358,15 @@ main{flex:1;width:100%;max-width:var(--maxw);margin:0 auto;padding:20px 16px 120
       <div class="inputrow">
         <div class="field">
           <div class="flabel"><span>天数</span></div>
-          <input class="finput" id="in-days" type="number" min="1" max="14">
+          <input class="finput" id="in-days" type="number" min="1" max="14" placeholder="请输入">
         </div>
         <div class="field">
           <div class="flabel"><span>人数</span></div>
-          <input class="finput" id="in-travelers" type="number" min="1" max="30">
+          <input class="finput" id="in-travelers" type="number" min="1" max="30" placeholder="请输入">
         </div>
         <div class="field">
           <div class="flabel"><span>人均预算（元）</span></div>
-          <input class="finput" id="in-budget" type="number" min="1">
+          <input class="finput" id="in-budget" type="number" min="1" placeholder="请输入">
         </div>
         <div class="field">
           <div class="flabel"><span>住宿偏好</span><span class="sub">（可选）</span></div>
@@ -380,6 +431,8 @@ main{flex:1;width:100%;max-width:var(--maxw);margin:0 auto;padding:20px 16px 120
         </div>
       </div>
     </div>
+
+    <div id="budget-mood"></div>
   </section>
 
   <!-- ===== 视图 3：清单 ===== -->
@@ -388,6 +441,8 @@ main{flex:1;width:100%;max-width:var(--maxw);margin:0 auto;padding:20px 16px 120
     <p class="sect-sub">“出门记得带”和“需要购买/预约”分开管理：证件仅提醒携带，物资与门票各自计入金额。</p>
 
     <div class="tips" id="trip-tips" style="display:none"></div>
+
+    <div id="trans-card"></div>
 
     <div class="tabs">
       <button class="tab" id="tab-bring" data-tab="bring"><span>出门记得带</span><span class="c" id="bring-count"></span></button>
@@ -402,7 +457,7 @@ main{flex:1;width:100%;max-width:var(--maxw);margin:0 auto;padding:20px 16px 120
 
     <div class="hint" id="book-hint" style="display:none">
       状态规则：<b>已准备 / 暂不需要</b> 不计入金额；仅“<b>待购买或预约</b>”的物资计入“待购金额”，门票与游船计入“预约费用”。<br>
-      所有”购买”按钮会打开天猫超市/飞猪的关键词搜索页，方便你直接比价下单。
+      所有”购买”按钮会打开天猫/飞猪的关键词搜索页，方便你直接比价下单。
     </div>
 
     <div class="summary" id="summary" style="display:none"></div>
@@ -499,6 +554,8 @@ const STAY_OPTIONS = {hostel:'青年旅舍', budget:'经济连锁', mix:'混合'
 
 /* ===== 后端地址：本地调试用 localhost；部署后改为你的公网 HTTPS 地址 ===== */
 const BACKEND_ENDPOINT = 'https://shaky-tools-speak.loca.lt/api/plan';
+/* 高德POI搜索走本机后端（本地开发）；GitHub部署后改公网地址 */
+const API_BASE = 'http://localhost:8787';
 
 /* 请求后端生成真实行程；失败时抛错，由调用方回退到 mock */
 async function fetchPlanFromBackend(inputs){
@@ -523,6 +580,16 @@ const CITY_LL = {  // 城市 →（近似）经纬度，用于程序计算里程
   福州:[26.074,119.297], 济南:[36.651,117.120], 天津:[39.085,117.199],
   宁波:[29.868,121.544], 无锡:[31.491,120.312], 常州:[31.811,119.974],
   徐州:[34.205,117.284], 青岛:[36.067,120.383], 温州:[27.994,120.699],
+  厦门:[24.480,118.089], 昆明:[24.880,102.832], 贵阳:[26.647,106.630],
+  南宁:[22.817,108.366], 海口:[20.044,110.199], 三亚:[18.253,109.512],
+  兰州:[36.061,103.834], 西宁:[36.617,101.778], 银川:[38.487,106.231],
+  乌鲁木齐:[43.826,87.617], 拉萨:[29.652,91.172], 呼和浩特:[40.842,111.750],
+  太原:[37.870,112.549], 石家庄:[38.043,114.515], 哈尔滨:[45.803,126.535],
+  长春:[43.818,125.324], 沈阳:[41.806,123.432], 大连:[38.914,121.615],
+  洛阳:[34.620,112.454], 桂林:[25.274,110.290], 珠海:[22.271,113.577],
+  嘉兴:[30.752,120.756], 绍兴:[30.030,120.582], 金华:[29.079,119.647],
+  湖州:[30.894,120.086], 南通:[31.980,120.895], 扬州:[32.393,119.413],
+  镇江:[32.187,119.425], 唐山:[39.630,118.180], 佛山:[23.022,113.122],
 };
 const TRANS_MODE = {
   hsr:{label:'高铁', fn:km=>Math.max(80, Math.round(km*2*0.42))},
@@ -539,6 +606,22 @@ function getCityLL(name){
   if(!name) return null;
   const c = String(name).replace(/市$/,'').trim();
   return CITY_LL[c] || null;
+}
+
+/* ===== 景点间市内交通：估算两点距离与各方式费用 ===== */
+const CITY_TRANS_MODES = [
+  {id:'walk',  label:'步行'},
+  {id:'metro', label:'地铁'},
+  {id:'bus',   label:'公交'},
+  {id:'taxi',  label:'打车'},
+];
+function legsBetween(a, b){
+  const km = (a&&a.lat&&b&&b.lat) ? havKm(a.lat,a.lng,b.lat,b.lng) : null;
+  const eff = km==null ? null : Math.max(0.5, km*1.3); // 路网系数≈1.3
+  return {
+    km, eff,
+    cost: { walk:0, bus:2, metro:4, taxi: eff==null ? null : Math.round(10 + eff*2.5) }
+  };
 }
 function originKm(inputs){
   // 目的地坐标
@@ -559,6 +642,241 @@ function computeTransport(inputs){
   if(mode===TRANS_MODE.flight && km<500)
     return {amount:0, km:Math.round(km), note:`距离较近（${Math.round(km)}km），建议高铁或自驾，飞机暂不计`};
   return {amount:mode.fn(km), km:Math.round(km), note:'估算参考值（程序按里程折算）'};
+}
+
+/* ===== 内置真实景点库（回退/离线时按目的地生成具体行程） =====
+   n=名称  a=地址  c=约价(元)  t=标签  du=建议时长  r=口碑分(约)  */
+const POI_DB = {
+  杭州:[
+    {n:'西湖 · 断桥/白堤', a:'西湖区北山路', c:0, t:'自然', du:'3小时', r:4.8, lat:30.2518, lng:120.1470},
+    {n:'灵隐寺', a:'西湖区灵隐路法云弄1号', c:45, t:'历史', du:'2小时', r:4.7, lat:30.2390, lng:120.1030},
+    {n:'雷峰塔', a:'西湖区南山路15号', c:40, t:'夜景', du:'1.5小时', r:4.5, lat:30.2310, lng:120.1500},
+    {n:'河坊街 · 南宋御街', a:'上城区河坊街', c:0, t:'美食', du:'1.5小时', r:4.4, lat:30.2395, lng:120.1700},
+    {n:'西溪国家湿地公园', a:'西湖区天目山路518号', c:60, t:'自然', du:'3小时', r:4.6, lat:30.2720, lng:120.0530},
+    {n:'九溪烟树', a:'西湖区龙井村', c:0, t:'自然', du:'2小时', r:4.5, lat:30.2100, lng:120.1000},
+    {n:'中国丝绸博物馆', a:'西湖区玉皇山路73-1号', c:0, t:'博物馆', du:'1.5小时', r:4.5, lat:30.2260, lng:120.1490},
+    {n:'浙江大学（玉泉校区）', a:'西湖区浙大路38号', c:0, t:'文化', du:'1.5小时', r:4.6, lat:30.2650, lng:120.1260},
+  ],
+  成都:[
+    {n:'大熊猫繁育研究基地', a:'成华区熊猫大道1375号', c:55, t:'自然', du:'3小时', r:4.9, lat:30.7260, lng:104.1300},
+    {n:'宽窄巷子', a:'青羊区金河路口', c:0, t:'城市漫步', du:'1.5小时', r:4.5, lat:30.6670, lng:104.0580},
+    {n:'武侯祠', a:'武侯区武侯祠大街231号', c:50, t:'历史', du:'1.5小时', r:4.5, lat:30.6430, lng:104.0470},
+    {n:'锦里', a:'武侯区武侯祠大街', c:0, t:'美食', du:'2小时', r:4.5, lat:30.6440, lng:104.0480},
+    {n:'杜甫草堂', a:'青羊区青华路37号', c:50, t:'历史', du:'1.5小时', r:4.6, lat:30.6530, lng:104.0200},
+    {n:'春熙路 · 太古里', a:'锦江区春熙路', c:0, t:'购物', du:'2小时', r:4.6, lat:30.6510, lng:104.0830},
+    {n:'都江堰', a:'都江堰市公园路', c:80, t:'自然', du:'半天', r:4.8, lat:31.0070, lng:103.6220},
+  ],
+  西安:[
+    {n:'秦始皇兵马俑', a:'临潼区秦陵北路', c:120, t:'博物馆', du:'3小时', r:4.8, lat:34.3830, lng:109.2780},
+    {n:'大雁塔 · 大慈恩寺', a:'雁塔区雁塔南路', c:40, t:'历史', du:'1.5小时', r:4.6, lat:34.2200, lng:108.9630},
+    {n:'回民街', a:'莲湖区北院门', c:0, t:'美食', du:'1.5小时', r:4.4, lat:34.2630, lng:108.9360},
+    {n:'西安城墙 · 永宁门', a:'碑林区南大街', c:54, t:'历史', du:'2小时', r:4.7, lat:34.2580, lng:108.9460},
+    {n:'陕西历史博物馆', a:'雁塔区小寨东路91号', c:30, t:'博物馆', du:'2.5小时', r:4.7, lat:34.2140, lng:108.9520},
+    {n:'钟楼 · 鼓楼', a:'碑林区西大街', c:35, t:'地标', du:'1小时', r:4.6, lat:34.2610, lng:108.9400},
+    {n:'大唐不夜城', a:'雁塔区雁塔南路', c:0, t:'夜景', du:'2小时', r:4.6, lat:34.2130, lng:108.9630},
+  ],
+  南京:[
+    {n:'夫子庙 · 秦淮河', a:'秦淮区贡院街', c:0, t:'夜景', du:'2小时', r:4.5, lat:32.0210, lng:118.7910},
+    {n:'中山陵', a:'玄武区石象路7号', c:0, t:'历史', du:'2小时', r:4.7, lat:32.0640, lng:118.8480},
+    {n:'明孝陵', a:'玄武区石象路7号', c:70, t:'历史', du:'2小时', r:4.6, lat:32.0580, lng:118.8500},
+    {n:'南京博物院', a:'玄武区中山东路321号', c:0, t:'博物馆', du:'2.5小时', r:4.7, lat:32.0410, lng:118.8260},
+    {n:'总统府', a:'玄武区长江路292号', c:35, t:'历史', du:'2小时', r:4.6, lat:32.0460, lng:118.7950},
+    {n:'玄武湖公园', a:'玄武区玄武巷1号', c:0, t:'自然', du:'2小时', r:4.5, lat:32.0600, lng:118.7870},
+    {n:'老门东', a:'秦淮区剪子巷', c:0, t:'美食', du:'1.5小时', r:4.5, lat:32.0120, lng:118.7890},
+    {n:'鸡鸣寺', a:'玄武区鸡鸣寺路1号', c:10, t:'历史', du:'1小时', r:4.6, lat:32.0570, lng:118.7910},
+  ],
+  北京:[
+    {n:'故宫博物院', a:'东城区景山前街4号', c:60, t:'博物馆', du:'3小时', r:4.8, lat:39.9170, lng:116.3970},
+    {n:'天安门广场', a:'东城区长安街', c:0, t:'地标', du:'1小时', r:4.6, lat:39.9050, lng:116.3990},
+    {n:'颐和园', a:'海淀区新建宫门路19号', c:30, t:'自然', du:'3小时', r:4.7, lat:39.9990, lng:116.2750},
+    {n:'八达岭长城', a:'延庆区G6京藏高速', c:40, t:'历史', du:'半天', r:4.7, lat:40.3530, lng:116.0190},
+    {n:'南锣鼓巷', a:'东城区南锣鼓巷', c:0, t:'美食', du:'1.5小时', r:4.3, lat:39.9390, lng:116.4040},
+    {n:'国家博物馆', a:'东城区东长安街16号', c:0, t:'博物馆', du:'2.5小时', r:4.7, lat:39.9070, lng:116.4010},
+    {n:'天坛公园', a:'东城区天坛东里甲1号', c:15, t:'历史', du:'1.5小时', r:4.6, lat:39.8820, lng:116.4110},
+  ],
+  上海:[
+    {n:'外滩', a:'黄浦区中山东一路', c:0, t:'夜景', du:'1.5小时', r:4.7, lat:31.2390, lng:121.4900},
+    {n:'上海博物馆', a:'黄浦区人民大道201号', c:0, t:'博物馆', du:'2.5小时', r:4.7, lat:31.2280, lng:121.4760},
+    {n:'豫园', a:'黄浦区福佑路168号', c:30, t:'历史', du:'1.5小时', r:4.5, lat:31.2270, lng:121.4930},
+    {n:'田子坊', a:'黄浦区泰康路210弄', c:0, t:'城市漫步', du:'1.5小时', r:4.3, lat:31.2050, lng:121.4650},
+    {n:'武康路 · 老洋房', a:'徐汇区武康路', c:0, t:'城市漫步', du:'1.5小时', r:4.5, lat:31.2120, lng:121.4410},
+    {n:'东方明珠', a:'浦东新区世纪大道1号', c:199, t:'地标', du:'2小时', r:4.4, lat:31.2410, lng:121.5000},
+    {n:'陆家嘴 · 三件套', a:'浦东新区陆家嘴', c:0, t:'夜景', du:'1小时', r:4.6, lat:31.2390, lng:121.5010},
+  ],
+  重庆:[
+    {n:'洪崖洞', a:'渝中区嘉陵江滨江路88号', c:0, t:'夜景', du:'2小时', r:4.6, lat:29.5660, lng:106.5810},
+    {n:'磁器口古镇', a:'沙坪坝区磁童路', c:0, t:'美食', du:'2小时', r:4.4, lat:29.5930, lng:106.4620},
+    {n:'解放碑 · 八一好吃街', a:'渝中区民权路', c:0, t:'购物', du:'1.5小时', r:4.5, lat:29.5560, lng:106.5740},
+    {n:'长江索道', a:'渝中区新华路151号', c:30, t:'体验', du:'1小时', r:4.5, lat:29.5570, lng:106.5910},
+    {n:'南山一棵树观景台', a:'南岸区龙黄公路', c:30, t:'夜景', du:'1.5小时', r:4.5, lat:29.5430, lng:106.5880},
+    {n:'李子坝轻轨穿楼', a:'渝中区李子坝正街', c:0, t:'地标', du:'0.5小时', r:4.4, lat:29.5550, lng:106.5180},
+  ],
+  长沙:[
+    {n:'橘子洲头', a:'岳麓区橘子洲', c:0, t:'自然', du:'2小时', r:4.7, lat:28.1670, lng:112.9720},
+    {n:'岳麓山 · 爱晚亭', a:'岳麓区麓山南路', c:0, t:'自然', du:'2.5小时', r:4.6, lat:28.1900, lng:112.9400},
+    {n:'太平街', a:'天心区太平街', c:0, t:'美食', du:'1.5小时', r:4.4, lat:28.1960, lng:112.9760},
+    {n:'湖南省博物馆', a:'开福区东风路50号', c:0, t:'博物馆', du:'2.5小时', r:4.8, lat:28.2200, lng:112.9900},
+    {n:'天心阁', a:'天心区天心路', c:32, t:'历史', du:'1小时', r:4.4, lat:28.1890, lng:112.9770},
+    {n:'长沙IFS · 国金中心', a:'芙蓉区解放西路188号', c:0, t:'购物', du:'1.5小时', r:4.6, lat:28.1940, lng:112.9820},
+  ],
+  厦门:[
+    {n:'鼓浪屿', a:'思明区鼓浪屿', c:0, t:'城市漫步', du:'半天', r:4.6, lat:24.4460, lng:118.0660},
+    {n:'中山路步行街', a:'思明区中山路', c:0, t:'美食', du:'1.5小时', r:4.4, lat:24.4550, lng:118.0870},
+    {n:'南普陀寺', a:'思明区思明南路515号', c:0, t:'历史', du:'1.5小时', r:4.6, lat:24.4430, lng:118.0920},
+    {n:'厦门大学', a:'思明区思明南路422号', c:0, t:'文化', du:'1.5小时', r:4.7, lat:24.4360, lng:118.1020},
+    {n:'曾厝垵', a:'思明区曾厝垵', c:0, t:'美食', du:'2小时', r:4.3, lat:24.4230, lng:118.1240},
+    {n:'环岛路 · 白城沙滩', a:'思明区环岛南路', c:0, t:'自然', du:'1.5小时', r:4.6, lat:24.4280, lng:118.1260},
+  ],
+  武汉:[
+    {n:'黄鹤楼', a:'武昌区蛇山西山坡特1号', c:70, t:'历史', du:'1.5小时', r:4.5, lat:30.5440, lng:114.3070},
+    {n:'东湖绿道 · 磨山', a:'洪山区沿湖大道', c:0, t:'自然', du:'3小时', r:4.6, lat:30.5630, lng:114.4200},
+    {n:'户部巷', a:'武昌区自由路', c:0, t:'美食', du:'1.5小时', r:4.2, lat:30.5530, lng:114.3080},
+    {n:'湖北省博物馆', a:'武昌区东湖路160号', c:0, t:'博物馆', du:'2.5小时', r:4.8, lat:30.5620, lng:114.3620},
+    {n:'武汉长江大桥', a:'武昌区临江大道', c:0, t:'地标', du:'1小时', r:4.5, lat:30.5490, lng:114.2930},
+    {n:'武汉大学', a:'武昌区八一路299号', c:0, t:'文化', du:'1.5小时', r:4.7, lat:30.5370, lng:114.3610},
+  ],
+  广州:[
+    {n:'广州塔', a:'海珠区阅江西路222号', c:150, t:'地标', du:'1.5小时', r:4.5, lat:23.1070, lng:113.3260},
+    {n:'北京路步行街', a:'越秀区北京路', c:0, t:'购物', du:'1.5小时', r:4.4, lat:23.1260, lng:113.2680},
+    {n:'沙面岛', a:'荔湾区沙面南街', c:0, t:'城市漫步', du:'1.5小时', r:4.6, lat:23.1110, lng:113.2420},
+    {n:'白云山', a:'白云区同泰路', c:5, t:'自然', du:'半天', r:4.6, lat:23.1880, lng:113.2910},
+    {n:'陈家祠', a:'荔湾区中山七路恩龙里34号', c:10, t:'历史', du:'1小时', r:4.5, lat:23.1320, lng:113.2470},
+    {n:'长隆旅游度假区', a:'番禺区汉溪大道东299号', c:300, t:'体验', du:'全天', r:4.6, lat:22.9950, lng:113.3220},
+  ],
+  青岛:[
+    {n:'栈桥', a:'市南区太平路12号', c:0, t:'地标', du:'1小时', r:4.5, lat:36.0600, lng:120.3200},
+    {n:'八大关', a:'市南区武胜关路', c:0, t:'城市漫步', du:'2小时', r:4.7, lat:36.0510, lng:120.3570},
+    {n:'五四广场 · 奥帆中心', a:'市南区东海西路', c:0, t:'地标', du:'1.5小时', r:4.6, lat:36.0660, lng:120.3810},
+    {n:'青岛啤酒博物馆', a:'市北区登州路56号', c:60, t:'博物馆', du:'1.5小时', r:4.5, lat:36.0880, lng:120.3540},
+    {n:'天主教堂', a:'市南区浙江路15号', c:10, t:'历史', du:'1小时', r:4.5, lat:36.0680, lng:120.3220},
+    {n:'崂山风景区', a:'崂山区崂山路', c:90, t:'自然', du:'半天', r:4.7, lat:36.1860, lng:120.6400},
+  ],
+  苏州:[
+    {n:'拙政园', a:'姑苏区东北街178号', c:80, t:'历史', du:'2小时', r:4.6, lat:31.3220, lng:120.6240},
+    {n:'平江路', a:'姑苏区平江路', c:0, t:'城市漫步', du:'1.5小时', r:4.6, lat:31.3120, lng:120.6300},
+    {n:'虎丘', a:'姑苏区虎丘山门内8号', c:70, t:'自然', du:'2小时', r:4.5, lat:31.3390, lng:120.5950},
+    {n:'山塘街', a:'姑苏区广济路', c:0, t:'美食', du:'1.5小时', r:4.5, lat:31.3230, lng:120.6030},
+    {n:'苏州博物馆', a:'姑苏区东北街204号', c:0, t:'博物馆', du:'1.5小时', r:4.7, lat:31.3240, lng:120.6230},
+    {n:'金鸡湖 · 东方之门', a:'工业园区星港街', c:0, t:'夜景', du:'1.5小时', r:4.6, lat:31.3150, lng:120.6940},
+  ],
+  深圳:[
+    {n:'世界之窗', a:'南山区深南大道9037号', c:220, t:'体验', du:'半天', r:4.4, lat:22.5370, lng:113.9700},
+    {n:'莲花山公园', a:'福田区红荔路6030号', c:0, t:'自然', du:'1.5小时', r:4.6, lat:22.5560, lng:114.0630},
+    {n:'深圳湾公园', a:'南山区滨海大道', c:0, t:'自然', du:'2小时', r:4.6, lat:22.5220, lng:113.9460},
+    {n:'东门老街', a:'罗湖区人民北路', c:0, t:'购物', du:'2小时', r:4.2, lat:22.5480, lng:114.1240},
+    {n:'华侨城创意园', a:'南山区华侨城', c:0, t:'文化', du:'1.5小时', r:4.5, lat:22.5450, lng:113.9860},
+  ],
+  昆明:[
+    {n:'滇池 · 海埂大坝', a:'西山区滇池路', c:0, t:'自然', du:'2小时', r:4.6, lat:24.9570, lng:102.6520},
+    {n:'翠湖公园', a:'五华区翠湖南路', c:0, t:'自然', du:'1.5小时', r:4.5, lat:25.0440, lng:102.7030},
+    {n:'云南民族村', a:'西山区滇池路1310号', c:90, t:'文化', du:'半天', r:4.4, lat:24.9620, lng:102.6650},
+    {n:'金马碧鸡坊', a:'五华区金碧路', c:0, t:'地标', du:'0.5小时', r:4.4, lat:25.0210, lng:102.7120},
+    {n:'石林风景区', a:'石林县石林大道', c:130, t:'自然', du:'全天', r:4.7, lat:24.8110, lng:103.2710},
+  ],
+  桂林:[
+    {n:'象鼻山', a:'象山区滨江路', c:70, t:'地标', du:'1.5小时', r:4.6, lat:25.2740, lng:110.3040},
+    {n:'两江四湖', a:'秀峰区滨江路', c:210, t:'夜景', du:'2小时', r:4.5, lat:25.2810, lng:110.2950},
+    {n:'阳朔西街', a:'阳朔县西街', c:0, t:'美食', du:'2小时', r:4.4, lat:24.7780, lng:110.4960},
+    {n:'漓江', a:'灵川县至阳朔段', c:215, t:'自然', du:'半天', r:4.7, lat:25.0000, lng:110.4600},
+    {n:'独秀峰 · 王城', a:'秀峰区王城1号', c:100, t:'历史', du:'1.5小时', r:4.4, lat:25.2860, lng:110.2950},
+  ],
+  哈尔滨:[
+    {n:'中央大街', a:'道里区中央大街', c:0, t:'城市漫步', du:'2小时', r:4.6, lat:45.7800, lng:126.6150},
+    {n:'圣索菲亚大教堂', a:'道里区透笼街88号', c:0, t:'历史', du:'1小时', r:4.6, lat:45.7700, lng:126.6210},
+    {n:'太阳岛', a:'松北区太阳岛', c:30, t:'自然', du:'半天', r:4.5, lat:45.7860, lng:126.6150},
+    {n:'老道外中华巴洛克', a:'道外区靖宇街', c:0, t:'城市漫步', du:'1.5小时', r:4.4, lat:45.7840, lng:126.6410},
+    {n:'冰雪大世界', a:'松北区太阳岛西区', c:330, t:'体验', du:'3小时', r:4.6, lat:45.7970, lng:126.5850},
+  ],
+  大连:[
+    {n:'星海广场', a:'沙河口区中山路', c:0, t:'地标', du:'1小时', r:4.5, lat:38.8880, lng:121.5900},
+    {n:'老虎滩海洋公园', a:'中山区滨海中路9号', c:220, t:'体验', du:'半天', r:4.5, lat:38.8730, lng:121.6760},
+    {n:'棒棰岛', a:'中山区滨海路', c:20, t:'自然', du:'2小时', r:4.5, lat:38.8700, lng:121.6800},
+    {n:'金石滩', a:'金州区金石滩', c:20, t:'自然', du:'半天', r:4.6, lat:39.0770, lng:121.9940},
+  ],
+  洛阳:[
+    {n:'龙门石窟', a:'洛龙区龙门中街', c:90, t:'历史', du:'3小时', r:4.7, lat:34.5540, lng:112.4660},
+    {n:'白马寺', a:'洛龙区白马寺镇', c:35, t:'历史', du:'1.5小时', r:4.6, lat:34.7220, lng:112.6050},
+    {n:'洛阳老街 · 丽景门', a:'老城区西大街', c:0, t:'美食', du:'1.5小时', r:4.5, lat:34.6810, lng:112.4670},
+    {n:'应天门', a:'西工区中州中路', c:60, t:'夜景', du:'1.5小时', r:4.6, lat:34.6790, lng:112.4590},
+    {n:'洛阳博物馆', a:'洛龙区聂泰路', c:0, t:'博物馆', du:'2小时', r:4.7, lat:34.6080, lng:112.4370},
+  ],
+  天津:[
+    {n:'五大道', a:'和平区成都道', c:0, t:'城市漫步', du:'2小时', r:4.6, lat:39.1080, lng:117.2030},
+    {n:'天津之眼摩天轮', a:'红桥区三岔河口', c:70, t:'夜景', du:'1小时', r:4.4, lat:39.1530, lng:117.1810},
+    {n:'古文化街', a:'南开区古文化街', c:0, t:'美食', du:'1.5小时', r:4.3, lat:39.1460, lng:117.1800},
+    {n:'意式风情区', a:'河北区自由道', c:0, t:'城市漫步', du:'1.5小时', r:4.4, lat:39.1370, lng:117.2020},
+  ],
+  宁波:[
+    {n:'天一阁', a:'海曙区天一街10号', c:30, t:'历史', du:'1.5小时', r:4.6, lat:29.8760, lng:121.5370},
+    {n:'老外滩', a:'江北区中马路', c:0, t:'夜景', du:'1.5小时', r:4.5, lat:29.8880, lng:121.5550},
+    {n:'东钱湖', a:'鄞州区东钱湖镇', c:0, t:'自然', du:'半天', r:4.5, lat:29.7600, lng:121.6500},
+    {n:'鼓楼沿', a:'海曙区中山路', c:0, t:'美食', du:'1小时', r:4.4, lat:29.8760, lng:121.5450},
+  ],
+  福州:[
+    {n:'三坊七巷', a:'鼓楼区南后街', c:0, t:'城市漫步', du:'2小时', r:4.6, lat:26.0890, lng:119.3010},
+    {n:'鼓山 · 涌泉寺', a:'晋安区鼓山路', c:0, t:'自然', du:'半天', r:4.5, lat:26.0850, lng:119.3820},
+    {n:'烟台山', a:'仓山区烟台路', c:0, t:'城市漫步', du:'1.5小时', r:4.5, lat:26.0500, lng:119.3090},
+    {n:'福州西湖', a:'鼓楼区湖滨路', c:0, t:'自然', du:'1.5小时', r:4.4, lat:26.1020, lng:119.2840},
+  ],
+  南昌:[
+    {n:'滕王阁', a:'东湖区仿古街58号', c:50, t:'历史', du:'1.5小时', r:4.5, lat:28.6830, lng:115.8800},
+    {n:'八一广场', a:'东湖区八一大道', c:0, t:'地标', du:'1小时', r:4.5, lat:28.6710, lng:115.9000},
+    {n:'绳金塔', a:'西湖区绳金塔街', c:0, t:'历史', du:'1小时', r:4.3, lat:28.6630, lng:115.8890},
+    {n:'南昌之星摩天轮', a:'红谷滩区赣江市民公园', c:50, t:'夜景', du:'1小时', r:4.4, lat:28.6730, lng:115.8500},
+  ],
+};
+
+/* 用内置景点库生成具体行程；城市不在库内则回退到通用模板 */
+function poiPlanFor(dest, inputs){
+  const list = POI_DB[dest.replace(/市$/,'')];
+  if(!list) return null;
+  const perDay = {relaxed:3, balanced:4, packed:5}[inputs.pace] || 4;
+  const days = Math.max(1, Math.min(7, Number(inputs.days)||3));
+  const used = list.slice();
+  const it = [];
+  for(let d=0; d<days; d++){
+    // 每天从库里依次取，尽量保证相邻点地理相近：按经纬度做简单就近排序
+    const dayCount = Math.min(perDay, used.length);
+    const take = used.splice(0, dayCount);
+    // 首点固定，其余按距首点距离排序，形成就近路线
+    const first = take[0];
+    const rest = take.slice(1).sort((a,b)=>{
+      const da = Math.abs(a.lat-first.lat)+Math.abs(a.lng-first.lng);
+      const db = Math.abs(b.lat-first.lat)+Math.abs(b.lng-first.lng);
+      return da-db;
+    });
+    const ordered = [first].concat(rest);
+    const slots = ordered.map((p,i)=>({
+      time: slotTime(i), title:p.n, address:p.a, duration:p.du,
+      cost:p.c, tag:p.t, reason: reasonFor(p.t,p.c),
+      lat:p.lat, lng:p.lng, rating:p.r,
+    }));
+    it.push({day:d+1, theme: themeFor(d), slots});
+  }
+  return it;
+}
+function slotTime(i){
+  const slots=['09:00','12:00','14:00','17:00','19:30'];
+  return slots[i] || '10:00';
+}
+function themeFor(d){
+  const t=['城市地标 · 人文初览','深度漫步 · 老街与美食','自然山水 · 近郊探索','市井烟火 · 夜市收尾','自由补漏 · 轻松返程'];
+  return t[d % t.length];
+}
+function reasonFor(tag,c){
+  const map={
+    '历史':'知名历史地标，学生证可享优惠，适合深度打卡。',
+    '自然':'景色开阔，适合慢慢逛、拍照，体力要求适中。',
+    '美食':'本地特色集中，人均友好，适合小团体边走边吃。',
+    '夜景':'日落/夜景最出片，适合晚上逛，氛围拉满。',
+    '博物馆':'馆藏丰富，部分免费预约，适合建立城市印象。',
+    '城市漫步':'梧桐与老街氛围，小众出片、人少清净。',
+    '购物':'商圈交通便利，可顺路采购伴手礼。',
+    '体验':'互动性强，适合小团体一起玩，留作纪念。',
+    '文化':'有格调、适合歇脚拍照，节奏轻。',
+    '地标':'城市名片级景点，必打卡。'
+  };
+  return map[tag] || (c>0?'凭学生证可享门票优惠。':'免费开放，适合顺路打卡。');
 }
 
 function generateTripPlan(inputs){
@@ -600,16 +918,19 @@ function generateTripPlan(inputs){
     ]},
   ];
 
-  const it = [];
-  for(let d=0; d<days; d++){
-    const tpl = THEMES[d % THEMES.length];
-    const slots = tpl.slots.slice(0, perDay).map((s,i)=>({
-      time:s.t, title:s.title, address:s.a, duration:s.d,
-      cost:s.c, tag:s.tag, reason:s.r,
-      lat: +(clat + s.dl + (Math.random()-0.5)*0.01).toFixed(4),
-      lng: +(clng + s.dl*1.3 + (Math.random()-0.5)*0.01).toFixed(4),
-    }));
-    it.push({day:d+1, theme:tpl.theme, slots});
+  let it = poiPlanFor(dest, inputs);
+  if(!it){
+    it = [];
+    for(let d=0; d<days; d++){
+      const tpl = THEMES[d % THEMES.length];
+      const slots = tpl.slots.slice(0, perDay).map((s,i)=>({
+        time:s.t, title:s.title, address:s.a, duration:s.d,
+        cost:s.c, tag:s.tag, reason:s.r,
+        lat: +(clat + s.dl + (Math.random()-0.5)*0.01).toFixed(4),
+        lng: +(clng + s.dl*1.3 + (Math.random()-0.5)*0.01).toFixed(4),
+      }));
+      it.push({day:d+1, theme:tpl.theme, slots});
+    }
   }
 
   const trans = computeTransport(inputs);
@@ -632,15 +953,16 @@ function generateTripPlan(inputs){
     bring:[
       {label:'身份证', note:'证件 · 必带', shop:false},
       {label:'学生证', note:'多数景点门票半价', shop:false},
-      {label:'手机+充电宝', shop:true},
-      {label:'纸巾/湿巾', shop:true},
-      {label:'常用药', note:'晕车药、创可贴', shop:true},
+      {label:'充电宝', keyword:'充电宝 大容量 便携', shop:true},
+      {label:'纸巾/湿巾', keyword:'抽纸 家庭装 整箱', shop:true},
+      {label:'常用药', keyword:'旅行常备药 创可贴 晕车药', shop:true},
     ],
     need:[
-      {label:dest+'热门景点门票', kind:'ticket', status:'pending', amount:50, qty:ppl, keyword:dest+' 景点 门票'},
-      {label:dest+'夜市/游船票', kind:'ticket', status:'pending', amount:80, qty:ppl, keyword:dest+' 夜市 游船'},
-      {label:'雨具', kind:'material', status:'pending', amount:30, qty:ppl, keyword:'雨伞 雨衣'},
-      {label:'穿搭参考', kind:'clothing', status:'pending', amount:0, qty:1, keyword:dest+' 10月 穿搭'},
+      {label:dest+'热门景点门票', kind:'ticket', status:'pending', amount:50, qty:ppl, keyword:dest+' 景点 门票 预约'},
+      {label:dest+'夜市/游船票', kind:'ticket', status:'pending', amount:80, qty:ppl, keyword:dest+' 游船 夜景 门票'},
+      {label:'折叠雨伞', kind:'material', status:'pending', amount:30, qty:ppl, keyword:'雨伞 折叠 晴雨两用'},
+      {label:'防晒霜', kind:'material', status:'pending', amount:45, qty:ppl, keyword:'防晒霜 学生 户外'},
+      {label:'穿搭参考', kind:'clothing', status:'pending', amount:0, qty:1, keyword:dest+' 秋季 外套 卫衣'},
     ],
   };
 
@@ -673,8 +995,8 @@ function computeBudget(plan){
 /* ================== 应用状态 ================== */
 const state = {
   step:1,
-  inputs:{destination:'', days:3, travelers:4, budgetPerPerson:500,
-          date:'2026-11-01', stay:'hostel', origin:'杭州', transMode:'hsr', originCoords:null,
+  inputs:{destination:'', days:'', travelers:'', budgetPerPerson:'',
+          date:'2026-11-01', stay:'hostel', origin:'', transMode:'hsr', originCoords:null,
           interests:['history','food','night'], pace:'balanced'},
   plan:null,
   computed:null,
@@ -722,8 +1044,8 @@ function renderStep1(){
 
 function updateBudgetTotal(){
   const d=state.inputs;
-  const v=(Math.max(0,(Number(d.travelers)||0)))*(Math.max(0,(Number(d.budgetPerPerson)||0)));
-  $('budget-total').textContent = '¥' + v.toLocaleString();
+  const n=Number(d.travelers)||0, b=Number(d.budgetPerPerson)||0;
+  $('budget-total').textContent = (n>0&&b>0) ? ('¥'+(n*b).toLocaleString()) : '—';
 }
 
 function renderTrans(){
@@ -817,26 +1139,249 @@ function renderStep2(){
      <br><b>偏好：</b>${p.meta.interests} ｜ <b>节奏：</b>${p.meta.pace}`;
 
   $('itinerary').innerHTML = p.itinerary.map(d=>`
-    <div class="card daycard">
+    <div class="card daycard" data-day="${d.day}">
       <div class="dayhead"><span class="d">第 ${d.day} 天</span><span class="t">${d.theme}</span></div>
       <div class="timeline">
-        ${d.slots.map(s=>`
-        <div class="titem">
-          <div class="ttime">${s.time}</div>
-          <div class="body">
-            <div class="tname">${s.title} <span class="tag">${s.tag}</span></div>
-            <div class="taddr">${s.address}</div>
-            <div class="tmeta">
-              <span>${icoClock()} ${s.duration}</span>
-              <span>${icoCoin()} ${s.cost>0?'约¥'+s.cost:'免费'}</span>
+        ${d.slots.map((s,si)=>{
+          const leg = si>0 ? legsBetween(d.slots[si-1], s) : null;
+          const trans = s.transTo && s.transTo.mode ? s.transTo.mode : (leg ? (leg.eff<=2?'walk':'metro') : 'walk');
+          return `
+          ${leg ? renderLeg(si, d.day, leg, trans, s.transTo&&s.transTo.manual) : ''}
+          <div class="titem" data-day="${d.day}" data-idx="${si}">
+            <div class="ttime">${s.time}</div>
+            <div class="body">
+              <div class="tname">${s.title} ${s.rating?`<span class="spotrate">★ ${s.rating}</span>`:''} <span class="tag">${s.tag||'自定义'}</span>
+                <button type="button" class="delspot" data-act="del" title="删除该景点">×</button></div>
+              <div class="taddr">${s.address||''}</div>
+              <div class="tmeta">
+                <span>${icoClock()} ${s.duration}</span>
+                <span>${icoCoin()} ${s.cost>0?'约¥'+s.cost:'免费'}</span>
+              </div>
+              <div class="treason">${s.reason||''}</div>
             </div>
-            <div class="treason">${s.reason}</div>
-          </div>
-        </div>`).join('')}
+          </div>`;
+        }).join('')}
+        <div class="addspotwrap">
+          <button type="button" class="addspot" data-act="add" data-day="${d.day}">＋ 添加景点</button>
+        </div>
       </div>
     </div>`).join('');
 
   renderBudget();
+  renderBudgetMood();
+}
+
+/* ===== 第二页 · 预算情感互动装置 ===== */
+function renderBudgetMood(){
+  const el=$('budget-mood'); if(!el) return;
+  const c=state.computed, cap=state.inputs.budgetPerPerson||0;
+  const over = c.remaining < 0;
+  if(over){
+    const need=Math.abs(c.remaining);
+    el.innerHTML = `
+      <div class="mood over">
+        <div class="mood-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 5a7 7 0 1 0 0 14 7 7 0 0 0 0-14z" stroke="#C05555" stroke-width="1.7"/><path d="M9.5 10v4M14.5 10v4M9 15.2a4 4 0 0 0 6 0" stroke="#C05555" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <div class="mood-body">
+          <div class="mt">哎呀，预算超了 <b>¥${need.toLocaleString()}</b></div>
+          <div class="ms">要不要精简一下项目，或适当调高预算？别让钱包在回程路上崩溃～</div>
+          <div class="ma">
+            <button type="button" class="actbtn ghost" id="mood-trim">去精简</button>
+            <button type="button" class="actbtn shop" id="mood-raise">增加预算</button>
+          </div>
+        </div>
+      </div>`;
+    el.querySelector('#mood-trim').addEventListener('click',trimBudget);
+    el.querySelector('#mood-raise').addEventListener('click',raiseBudget);
+  } else {
+    el.innerHTML = `
+      <div class="mood ok">
+        <div class="mood-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M7 10h2l3-5a2.2 2.2 0 0 1 4 1.4V10h3.4a1.5 1.5 0 0 1 1.45 1.9l-1.5 6A1.5 1.5 0 0 1 18 19H6a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1z" stroke="#0E7A6B" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="mood-body">
+          <div class="mt">预算稳稳的，余 <b>¥${c.remaining.toLocaleString()}</b> 可机动</div>
+          <div class="ms">安排得刚刚好，放心出发，记得给这场旅行留点惊喜预算～</div>
+        </div>
+      </div>`;
+  }
+}
+/* 去精简：一键砍掉“文创/应急”等可省项，重算预算 */
+function trimBudget(){
+  const items=state.plan.budget.items;
+  const keep=items.filter(i=>!['文创/应急','购物','纪念品'].includes(i.category));
+  if(keep.length===items.length){ toast('没有更多可精简的可选项目了，建议去清单页把不需要的设为“暂不需要”'); return; }
+  state.plan.budget.items=keep;
+  state.computed=computeBudget(state.plan);
+  renderStep2();
+  const still=state.computed.remaining;
+  if(still<0) toast('已精简可选项目，仍超支 ¥'+Math.abs(still).toLocaleString()+'，可再增加预算或继续精简');
+  else toast('已精简，现在余 ¥'+still.toLocaleString()+'，轻松出发！');
+}
+/* 增加预算：调高人均预算并重算 */
+function raiseBudget(){
+  const cur=Number(state.inputs.budgetPerPerson)||0;
+  const v=window.prompt('当前人均预算 ¥'+cur+'，请输入新的每人预算（元）：', cur+100);
+  if(v==null||v==='') return;
+  const n=Number(v);
+  if(isNaN(n)||n<=0){ toast('请输入有效金额'); return; }
+  state.inputs.budgetPerPerson=n;
+  state.plan.meta.budgetPerPerson=n;
+  state.plan.budget.capPerPerson=n;
+  state.computed=computeBudget(state.plan);
+  renderStep2();
+  toast('已把人均预算调整为 ¥'+n.toLocaleString());
+}
+
+/* 两个景点之间的交通选择行 */
+function renderLeg(si, day, leg, mode, manual){
+  const dist = leg.km==null ? '距离未知' : `约${leg.eff.toFixed(1)}km`;
+  const chosenCost = leg.cost[mode];
+  const chips = CITY_TRANS_MODES.map(m=>{
+    const on = m.id===mode ? 'on' : '';
+    const cost = leg.cost[m.id];
+    const costTxt = cost==null ? '' : (cost===0?'免费':'¥'+cost);
+    return `<button type="button" class="chip legchip ${on}" data-act="trans" data-day="${day}" data-idx="${si}" data-mode="${m.id}">${m.label}${costTxt?`<i>${costTxt}</i>`:''}</button>`;
+  }).join('');
+  const warn = mode==='walk' && leg.eff>3 ? '<span class="legwarn">步行较远，建议选地铁/打车</span>'
+           : (mode!=='walk' && leg.eff<=1.2 ? '<span class="legwarn">很近，步行即可</span>' : '');
+  return `<div class="leg" data-day="${day}" data-idx="${si}">
+    <div class="leghead"><span class="l">前往下一站</span><span class="d">${dist}${manual?' · 已手动选择':''}</span></div>
+    <div class="legbody">
+      <div class="legchips">${chips}</div>
+      <div class="legcost">${chosenCost==null?'':(chosenCost===0?'步行免费':'预计 ¥'+chosenCost)}</div>
+    </div>
+    ${warn}
+  </div>`;
+}
+
+/* 行程区事件委托：删除 / 添加 / 切换交通方式 */
+function bindItinerary(){
+  const box=$('itinerary');
+  box.addEventListener('click',e=>{
+    const del=e.target.closest('[data-act="del"]');
+    if(del){
+      const item=del.closest('.titem');
+      removeSpot(Number(item.dataset.day), Number(item.dataset.idx));
+      return;
+    }
+    const add=e.target.closest('[data-act="add"]');
+    if(add){ openAddSpot(Number(add.dataset.day)); return; }
+    const leg=e.target.closest('[data-act="trans"]');
+    if(leg){
+      setLeg(Number(leg.dataset.day), Number(leg.dataset.idx), leg.dataset.mode);
+      return;
+    }
+  });
+}
+
+function removeSpot(day, idx){
+  const p=state.plan, d=p.itinerary.find(x=>x.day===day);
+  if(!d) return;
+  d.slots.splice(idx,1);
+  // 重建 transTo 关系
+  p.itinerary.forEach(dd=>dd.slots.forEach((s,i)=>delete s.transTo));
+  state.computed=computeBudget(p);
+  renderStep2();
+  toast('已删除该景点');
+}
+
+function setLeg(day, idx, mode){
+  const d=state.plan.itinerary.find(x=>x.day===day);
+  if(!d||!d.slots[idx]) return;
+  d.slots[idx].transTo = { mode, manual:true };
+  state.computed=computeBudget(state.plan);
+  renderStep2();
+}
+
+/* 添加景点：内联面板 */
+function openAddSpot(day){
+  const existing=$('addspot-panel');
+  if(existing && existing.dataset.day==String(day)){ existing.remove(); return; }
+  if(existing) existing.remove();
+  const d=state.plan.itinerary.find(x=>x.day===day);
+  const cityLL=getCityLL(state.plan.meta.destination) || (d&&d.slots.length? [d.slots[0].lat,d.slots[0].lng] : null);
+  const panel=document.createElement('div');
+  panel.className='addspot-panel'; panel.id='addspot-panel'; panel.dataset.day=day;
+  const ll = cityLL?`${cityLL[0].toFixed(4)},${cityLL[1].toFixed(4)}`:'';
+  panel.innerHTML=`
+    <div class="asp-title">添加景点 · 第 ${day} 天</div>
+    <div class="asp-search">
+      <input class="finput" id="poi-kw" placeholder="搜当地真实景点（后端在线时，如：西湖）">
+      <button type="button" class="actbtn shop" id="poi-go">搜景点</button>
+    </div>
+    <div id="poi-res" class="poi-res"></div>
+    <div class="asp-body">
+      <input class="finput" data-f="name" placeholder="景点名称（必填）">
+      <input class="finput" data-f="addr" placeholder="地址（选填）">
+      <div style="display:flex;gap:8px">
+        <input class="finput" data-f="time" placeholder="时间，如 10:00">
+        <input class="finput" data-f="dur" placeholder="时长，如 2小时">
+      </div>
+      <div style="display:flex;gap:8px">
+        <input class="finput" data-f="cost" type="number" min="0" placeholder="人均花费（元）">
+        <input class="finput" data-f="tag" placeholder="类型，如 自然">
+      </div>
+      <input class="finput" data-f="ll" placeholder="经纬度(选填)，格式 纬度,经度：${ll}" value="${ll}">
+    </div>
+    <div class="asp-foot">
+      <button type="button" class="actbtn ghost" data-a="cancel">取消</button>
+      <button type="button" class="actbtn shop" data-a="ok">添加</button>
+    </div>`;
+  const target=$('itinerary').querySelector(`[data-day="${day}"] .timeline .addspotwrap`);
+  target.parentNode.insertBefore(panel, target);
+  panel.querySelector('[data-a="ok"]').addEventListener('click',()=>commitAddSpot(day,panel));
+  panel.querySelector('[data-a="cancel"]').addEventListener('click',()=>panel.remove());
+  panel.querySelector('#poi-go').addEventListener('click',()=>searchPoi(panel));
+  panel.querySelector('#poi-kw').addEventListener('keydown',e=>{ if(e.key==='Enter') searchPoi(panel); });
+}
+/* 高德POI搜索：后端在线则实时搜；失败则提示手动/内置库 */
+async function searchPoi(panel){
+  const kw=(panel.querySelector('#poi-kw').value||'').trim();
+  const res=panel.querySelector('#poi-res');
+  if(!kw){ res.innerHTML='<div class="poi-hint">先输入关键词，如：西湖、熊猫基地</div>'; return; }
+  res.innerHTML='<div class="poi-hint">正在搜索…</div>';
+  const city=state.plan.meta.destination || '';
+  try{
+    const url=API_BASE+'/api/poi?keywords='+encodeURIComponent(kw)+'&city='+encodeURIComponent(city);
+    const r=await fetch(url); const data=await r.json();
+    if(!data.ok || !data.pois || !data.pois.length){ res.innerHTML='<div class="poi-hint">没有找到结果（或后端未在线）。可手动填写下方信息。</div>'; return; }
+    res.innerHTML=data.pois.map(p=>{
+      const star=p.rating?`<span class="spotrate">★ ${p.rating}</span>`:'';
+      return `<button type="button" class="poi-item" data-name="${escapeHtml(p.name)}" data-addr="${escapeHtml(p.address)}" data-ll="${p.lat.toFixed(4)},${p.lng.toFixed(4)}">
+        <span class="pn">${escapeHtml(p.name)} ${star}</span><span class="pa">${escapeHtml(p.address)}</span>
+      </button>`;
+    }).join('');
+    res.querySelectorAll('.poi-item').forEach(b=>b.addEventListener('click',()=>{
+      panel.querySelector('[data-f="name"]').value=b.dataset.name;
+      panel.querySelector('[data-f="addr"]').value=b.dataset.addr;
+      panel.querySelector('[data-f="ll"]').value=b.dataset.ll;
+      panel.querySelector('[data-f="tag"]').value='景点';
+      res.innerHTML='<div class="poi-hint">已选中，可微调下方信息后添加</div>';
+    }));
+  }catch(e){
+    res.innerHTML='<div class="poi-hint">后端未在线，无法搜高德景点。请手动填写，或从内置城市景点库生成。</div>';
+  }
+}
+function commitAddSpot(day,panel){
+  const g={};
+  panel.querySelectorAll('[data-f]').forEach(i=>g[i.dataset.f]=i.value.trim());
+  if(!g.name){ toast('请填写景点名称'); return; }
+  let lat=null,lng=null;
+  if(g.ll){
+    const pr=g.ll.split(',');
+    if(pr.length===2){ lat=Number(pr[0]); lng=Number(pr[1]); }
+  }
+  if(lat==null||isNaN(lat)){
+    const cityLL=getCityLL(state.plan.meta.destination);
+    if(cityLL){ lat=cityLL[0]+(Math.random()-0.5)*0.02; lng=cityLL[1]+(Math.random()-0.5)*0.02; }
+  }
+  const d=state.plan.itinerary.find(x=>x.day===day);
+  d.slots.push({
+    time:g.time||'', title:g.name, address:g.addr||'', duration:g.dur||'',
+    cost:Math.max(0,Number(g.cost)||0), tag:g.tag||'自定义', reason:'用户手动添加',
+    lat:lat?+lat.toFixed(4):0, lng:lng?+lng.toFixed(4):0,
+  });
+  state.computed=computeBudget(state.plan);
+  renderStep2();
+  toast('已添加景点');
 }
 
 const BUDGET_COLORS = ['#0E7A6B','#E9A23B','#4A90C2','#7C6BB8','#C05555'];
@@ -903,7 +1448,7 @@ function drawBudgetChart(items,total){
 
 /* ================== 渲染：视图 3（清单） ================== */
 const KIND_LABEL = {material:'物资', ticket:'门票/游船', clothing:'衣物'};
-function materialSearchUrl(kw){ return 'https://chaoshi.tmall.com/search.htm?search=y&keyword='+encodeURIComponent(kw); }
+function materialSearchUrl(kw){ return 'https://s.taobao.com/search?tab=mall&q='+encodeURIComponent(kw); }
 function ticketSearchUrl(kw){ return 'https://www.fliggy.com/search.htm?searchKey='+encodeURIComponent(kw); }
 
 /* 出游日期 → 季节：驱动“出行建议”与“穿搭建议” */
@@ -936,14 +1481,46 @@ function computeNeed(){
 
 function kindActs(it){
   if(it.kind==='material')
-    return `<button class="actbtn shop" data-open="${escapeHtml(materialSearchUrl(it.keyword))}">去天猫超市搜索购买</button>`;
+    return `<button class="actbtn shop" data-open="${escapeHtml(materialSearchUrl(it.keyword))}">去天猫搜索购买</button>`;
   if(it.kind==='clothing')
     return `<button class="actbtn fit" data-fit="1">查看穿搭建议</button>`;
   return `<button class="actbtn book" data-open="${escapeHtml(ticketSearchUrl(it.keyword))}">去飞猪查门票</button>`;
 }
 
+/* ===== 第三页 · 往返大交通卡片 + 购票跳转 ===== */
+function renderTransCard(){
+  const el=$('trans-card'); if(!el) return;
+  const inputs=state.inputs;
+  const origin=inputs.origin||'出发地', dest=inputs.destination||'目的地';
+  const t=computeTransport(inputs);
+  const people=Math.max(1,Number(inputs.travelers)||1);
+  const mode=inputs.transMode||'hsr';
+  const modeLabel=(TRANS_MODE[mode]&&TRANS_MODE[mode].label)||'高铁/动车';
+  if(t.km==null){ el.style.display='none'; return; }
+  el.style.display='block';
+  const isDrive = mode==='drive';
+  const total = Math.round(t.amount*people);
+  const buyBtn = isDrive
+    ? `<span class="tt-no">自驾前往，无需购票</span>`
+    : `<button type="button" class="actbtn shop" data-open="${escapeHtml('https://www.fliggy.com/search.htm?searchKey='+encodeURIComponent(origin+'到'+dest))}">去飞猪购票</button>`;
+  el.innerHTML = `
+    <div class="card transc">
+      <div class="cardhead"><b>往返大交通</b><span class="sub">${escapeHtml(origin)} ⇄ ${escapeHtml(dest)}</span></div>
+      <div class="transc-body">
+        <div class="trc-row"><span class="k">方式</span><span class="v">${escapeHtml(modeLabel)}</span></div>
+        <div class="trc-row"><span class="k">里程</span><span class="v">约 ${t.km} km</span></div>
+        <div class="trc-row"><span class="k">人均往返</span><span class="v">¥${t.amount.toLocaleString()}</span></div>
+        <div class="trc-row"><span class="k">全队（${people}人）</span><span class="v"><b>¥${total.toLocaleString()}</b></span></div>
+      </div>
+      <div class="tt-actions">${buyBtn}<span class="tt-note">${escapeHtml(t.note||'')}</span></div>
+    </div>`;
+  const b=el.querySelector('.actbtn[data-open]');
+  if(b) b.addEventListener('click',()=>window.open(b.dataset.open,'_blank'));
+}
+
 function renderStep3(){
   renderTripTips();
+  renderTransCard();
   const tab=state.checklistTab;
   $('tab-bring').classList.toggle('on', tab==='bring');
   $('tab-book').classList.toggle('on', tab==='book');
@@ -960,7 +1537,7 @@ function renderStep3(){
   } else {
     $('addrow').innerHTML = `<input id="add-input" type="text" placeholder="要买/预约的项目，如：景点门票">
        <select id="add-kind">
-         <option value="material">物资 · 去天猫超市搜</option>
+         <option value="material">物资 · 去天猫搜</option>
          <option value="ticket">门票 / 游船 · 预约</option>
          <option value="clothing">衣物 · 穿搭建议</option>
        </select>
@@ -976,7 +1553,7 @@ function renderStep3(){
           <button class="ck" data-act="toggle">${icoCheck()}</button>
           <div class="tt"><span class="l">${escapeHtml(it.label)}</span>
             ${it.note?`<span class="n">${escapeHtml(it.note)}</span>`:''}</div>
-          ${it.shop?`<button class="actbtn shop" data-open="${escapeHtml(materialSearchUrl(it.label))}">去天猫超市搜索购买</button>`:''}
+          ${it.shop?`<button class="actbtn shop" data-open="${escapeHtml(materialSearchUrl(it.keyword||it.label))}">去天猫搜索购买</button>`:''}
           <button class="del" data-act="del" title="删除">×</button>
         </li>`)
     : list.map(it=>{
@@ -984,7 +1561,7 @@ function renderStep3(){
         const isCloth=it.kind==='clothing', isTicket=it.kind==='ticket';
         const line = isCloth ? '建议 · 不计金额'
                    : (it.amount>0 ? `¥${it.amount} × ${it.qty}` : '¥0');
-        const small = isCloth ? '穿搭建议' : (isTicket ? '待预约费用' : '待购金额');
+        const small = isCloth ? '穿搭建议' : (isTicket ? 'AI预估 · 待预约' : 'AI预估 · 待购金额');
         return `<li class="itemrow need ${dim?'dim':''}" data-id="${it.id}">
           <div class="row1">
             <div class="tt"><span class="l">${escapeHtml(it.label)}</span>
@@ -1016,7 +1593,7 @@ function renderStep3(){
         <span class="m">${book.length? book.map(x=>x.label).join('、') : '—'}</span>
         <span class="amt">¥${bookAmt.toLocaleString()}</span></div>
       <div class="sumtot"><span>合计待支出</span><span class="v">¥${total.toLocaleString()}</span></div>
-      <div class="sum-note">金额口径：待购金额 = 物资小计；预约费用 = 门票与游船小计。已准备 / 暂不需要的条目一律不计入。</div>`;
+      <div class="sum-note">金额为<b>AI 预估单价</b>（非实价，以购买页为准）：待购金额 = 物资小计；预约费用 = 门票与游船小计。已准备 / 暂不需要的条目一律不计入。</div>`;
   } else {
     sum.style.display='none';
   }
@@ -1273,7 +1850,7 @@ $('btn-next').addEventListener('click',async()=>{
 });
 
 /* ================== 启动 ================== */
-bindStep1(); bindStep3();
+bindStep1(); bindStep3(); bindItinerary();
 showStep(1);
 </script>
 </body>
