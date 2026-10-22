@@ -402,7 +402,7 @@ main{flex:1;width:100%;max-width:var(--maxw);margin:0 auto;padding:20px 16px 120
 
     <div class="hint" id="book-hint" style="display:none">
       状态规则：<b>已准备 / 暂不需要</b> 不计入金额；仅“<b>待购买或预约</b>”的物资计入“待购金额”，门票与游船计入“预约费用”。<br>
-      所有”购买”按钮会打开淘宝/飞猪的关键词搜索页，方便你直接比价下单。
+      所有”购买”按钮会打开天猫超市/飞猪的关键词搜索页，方便你直接比价下单。
     </div>
 
     <div class="summary" id="summary" style="display:none"></div>
@@ -903,7 +903,7 @@ function drawBudgetChart(items,total){
 
 /* ================== 渲染：视图 3（清单） ================== */
 const KIND_LABEL = {material:'物资', ticket:'门票/游船', clothing:'衣物'};
-function materialSearchUrl(kw){ return 'https://s.taobao.com/search?q='+encodeURIComponent(kw); }
+function materialSearchUrl(kw){ return 'https://chaoshi.tmall.com/search.htm?search=y&keyword='+encodeURIComponent(kw); }
 function ticketSearchUrl(kw){ return 'https://www.fliggy.com/search.htm?searchKey='+encodeURIComponent(kw); }
 
 /* 出游日期 → 季节：驱动“出行建议”与“穿搭建议” */
@@ -936,7 +936,7 @@ function computeNeed(){
 
 function kindActs(it){
   if(it.kind==='material')
-    return `<button class="actbtn shop" data-open="${escapeHtml(materialSearchUrl(it.keyword))}">去淘宝搜索购买</button>`;
+    return `<button class="actbtn shop" data-open="${escapeHtml(materialSearchUrl(it.keyword))}">去天猫超市搜索购买</button>`;
   if(it.kind==='clothing')
     return `<button class="actbtn fit" data-fit="1">查看穿搭建议</button>`;
   return `<button class="actbtn book" data-open="${escapeHtml(ticketSearchUrl(it.keyword))}">去飞猪查门票</button>`;
@@ -960,7 +960,7 @@ function renderStep3(){
   } else {
     $('addrow').innerHTML = `<input id="add-input" type="text" placeholder="要买/预约的项目，如：景点门票">
        <select id="add-kind">
-         <option value="material">物资 · 去淘宝搜</option>
+         <option value="material">物资 · 去天猫超市搜</option>
          <option value="ticket">门票 / 游船 · 预约</option>
          <option value="clothing">衣物 · 穿搭建议</option>
        </select>
@@ -976,7 +976,7 @@ function renderStep3(){
           <button class="ck" data-act="toggle">${icoCheck()}</button>
           <div class="tt"><span class="l">${escapeHtml(it.label)}</span>
             ${it.note?`<span class="n">${escapeHtml(it.note)}</span>`:''}</div>
-          ${it.shop?`<button class="actbtn shop" data-open="${escapeHtml(materialSearchUrl(it.label))}">去淘宝搜索购买</button>`:''}
+          ${it.shop?`<button class="actbtn shop" data-open="${escapeHtml(materialSearchUrl(it.label))}">去天猫超市搜索购买</button>`:''}
           <button class="del" data-act="del" title="删除">×</button>
         </li>`)
     : list.map(it=>{
@@ -1064,7 +1064,7 @@ function showFitModal(){
   $('fit-title').textContent = (state.inputs.destination||'')+' · '+dateLabel+s.label+' 穿搭建议';
   const kw = encodeURIComponent(s.key==='winter'?'冬季 保暖 外套':(s.key==='summer'?'夏季 防晒 薄款':'秋季 外套 卫衣'));
   $('fit-body').innerHTML = `
-    <div style="margin-bottom:12px"><a class="actbtn shop" href="https://s.taobao.com/search?q=${kw}" target="_blank" rel="noopener">去淘宝选购当季服饰</a></div>
+    <div style="margin-bottom:12px"><a class="actbtn shop" href="https://chaoshi.tmall.com/search.htm?search=y&keyword=${kw}" target="_blank" rel="noopener">去天猫超市选购当季服饰</a></div>
     ${buildFitGroups(s)}`;
   $('fit-overlay').classList.add('show');
 }
@@ -1073,7 +1073,7 @@ function buildFitGroups(s){
     spring:[
       {fg:'基础公式 · 洋葱式叠穿', p:'春天气温多变，早晚偏凉、午后转暖：内搭长袖/薄打底，中层卫衣或针织，外层薄外套，午后可脱。'},
       {fg:'按行程点位', p:'露天台阶多的景点穿舒适防滑运动鞋；湖边/江边风大加防风外套；夜晚游船偏凉，备连帽外套。'},
-      {fg:'雨天应对（春季多雨）', p:'随身带轻便雨衣或折叠伞；雨具如缺可在淘宝选购。'},
+      {fg:'雨天应对（春季多雨）', p:'随身带轻便雨衣或折叠伞；雨具如缺可在天猫超市选购。'},
       {fg:'拍照参考', p:'春季城市绿植偏清新，浅色、白/米色更出片。'},
     ],
     summer:[
@@ -1085,7 +1085,7 @@ function buildFitGroups(s){
     autumn:[
       {fg:'基础公式 · 洋葱式叠穿', p:'秋季昼夜温差大：内搭长袖，中层卫衣/针织，外层薄外套，午后转暖可脱。'},
       {fg:'按行程点位', p:'台阶多的景点穿舒适运动鞋；湖边/江边风大加防风外套；夜晚游船江风偏凉，备连帽外套。'},
-      {fg:'雨天应对', p:'备轻便雨衣或防水外套；雨具可到淘宝补购。'},
+      {fg:'雨天应对', p:'备轻便雨衣或防水外套；雨具可到天猫超市补购。'},
       {fg:'拍照参考', p:'秋季偏大地色系，浅色/卡其/米白更出片。'},
     ],
     winter:[
